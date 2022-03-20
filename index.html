@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- import bootstrap -->
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- import JS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/index.js"></script>
+    <title>Sistema de Recados</title>
+  </head>
+
+  <body>
+    <main style="height: 100vh; width: 100vw" class="container-fluid">
+      <section class="row align-items-center h-100">
+        <img
+          class="col-6 p-0 h-100"
+          src="./imagens/gercken-caminho-amanhecer-d.jpg"
+          alt="Imagem de quadro com caminho"
+        />
+        <div class="col-6 p-5">
+          <h1 class="text-uppercase text-secondary text-center mb-5">
+            Entrar no sistema de recados
+          </h1>
+          <form method="post" action="/">
+            <div class="row g-0 align-items-center">
+              <div class="col-6">
+                <input
+                  id="userName"
+                  class="form-control form-control-lg p-3"
+                  type="text"
+                  name="userName"
+                  placeholder="User Name"
+                />
+              </div>
+              <div class="col-6">
+                <input
+                  id="password"
+                  class="form-control form-control-lg p-3"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col d-grid gap-2 mt-4">
+                <input
+                  id="enter"
+                  class="btn btn-lg btn-success p-3 text-uppercase fs-6 fw-bold"
+                  type="submit"
+                  name="entrar"
+                  value="entrar"
+                  onclick="login(event)"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-uppercase">
+                <a href="./criarConta.html" class="text-decoration-none"
+                  ><h2 id="criarConta" class="fs-5 text-center text-success">
+                    criar conta
+                  </h2></a
+                >
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal de usuário não cadastrado -->
+        <div>
+          <div
+            class="modal fade"
+            id="naoCadas"
+            tabindex="-1"
+            aria-labelledby="naoCadastrado"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="naoCadastrado">
+                    Usuário não cadastrado
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">Por favor crie seu usuário.</div>
+                <div class="modal-footer">
+                  <button
+                    id="btnNaoCadastrado"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de senha incorreta -->
+        <div>
+          <div
+            class="modal fade"
+            id="senhaIncorreta"
+            tabindex="-1"
+            aria-labelledby="usuarioCriado"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="usuarioCriado">
+                    Senha incorreta
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">Por favor entre com a sua senha.</div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de usuário não cadastrado -->
+        <div>
+          <div
+            class="modal fade"
+            id="naoCadas"
+            tabindex="-1"
+            aria-labelledby="naoCadastrado"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="naoCadastrado">
+                    Usuário não cadastrado
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">Por favor crie seu usuário.</div>
+                <div class="modal-footer">
+                  <button
+                    id="btnNaoCadastrado"
+                    type="button"
+                    class="btn btn-primary"
+                    data-bs-dismiss="modal"
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

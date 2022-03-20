@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- import bootstrap -->
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+    <!-- import JS -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/recados.js"></script>
+    <title>Meus Recados</title>
+  </head>
+  <body>
+    <main style="height: 100vh; width: 100vw" class="container-fluid p-5">
+      <section>
+        <div id="nome" style="display: none"></div>
+        <div class="row">
+          <div class="col">
+            <h2>Meus recados</h2>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-4 me-3">
+            <input
+              id="descricao"
+              class="form-control"
+              type="text"
+              name="descricao"
+              placeholder="Descrição"
+            />
+          </div>
+          <div class="col input-group">
+            <input
+              id="detalhamento"
+              class="form-control"
+              type="text"
+              name="detalhamento"
+              placeholder="Detalhamento"
+            />
+            <button class="btn btn-primary" type="button" id="btnSalvar">
+              Salvar
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <table id="scrapTable" class="table table-striped">
+              <thead class="table-light">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">Detalhamento</th>
+                  <th scope="col">Ação</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <!-- Modal de Editar Mensagem -->
+  <div>
+    <div
+      class="modal fade"
+      id="editar"
+      tabindex="-1"
+      aria-labelledby="editarMensagem"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editarMensagem">Editando a mensagem</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row mb-4">
+              <div class="col-4 me-3">
+                <input
+                  id="novaDescricao"
+                  class="form-control"
+                  type="text"
+                  name="descricao"
+                />
+              </div>
+              <div class="col input-group">
+                <input
+                  id="novoDetalhamento"
+                  class="form-control"
+                  type="text"
+                  name="detalhamento"
+                />
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  id="btnSalvaEdicao"
+                >
+                  Salvar
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="btnNaoCadastrado"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Fechar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de usuário ou recado não encontrados -->
+  <div>
+    <div
+      class="modal fade"
+      id="naoEncontrado"
+      tabindex="-1"
+      aria-labelledby="naoEncontrado"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="naoEncontrado">Não encontrado</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Usuário ou recado não encontrado.</div>
+          <div class="modal-footer">
+            <button
+              id="btnNaoEncontrado"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal de campos preenchidos -->
+  <div>
+    <div
+      class="modal fade"
+      id="naoPreenchido"
+      tabindex="-1"
+      aria-labelledby="naoPreenchido"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="naoPreenchido">Campos incorretos</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Preencha todos os campos.</div>
+          <div class="modal-footer">
+            <button
+              id="btnNaoPreenchido"
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Ok
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    carregarMensagens();
+  </script>
+</html>
